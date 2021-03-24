@@ -22,6 +22,27 @@ class NamesTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    
+    @IBAction func onAddButtonTapped(_ sender: Any) {
+        let alert = UIAlertController(title: "Add a name", message: nil, preferredStyle: .alert)
+        var nameField: UITextField?
+        alert
+            .addTextField{ (textField) in
+                nameField = textField
+                nameField?.placeholder = "name"
+            }
+        let cancelAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        let confirmAction = UIAlertAction(title: "OK", style: .default) {(action) in
+            if let name = nameField?.text {
+                self.names.append(name)
+                self.tableView.reloadData()
+            }
+        }
+        alert.addAction(confirmAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
